@@ -1,6 +1,6 @@
 import time
 from inputimeout import inputimeout, TimeoutOccurred
-import pax_temp_api
+import pax_temp_api, update_github
 
 URL = "https://olayinka.net/tise"
 user = 'Tise'
@@ -13,6 +13,7 @@ def get_temps():
     temperatures = t_file.read().split(",")
     t_file.close()
     
+    update_github.run() # Update the files on github to match the network files
     return temperatures
 
 # Continuous Monitoring
@@ -57,10 +58,8 @@ def alert_mode():
     if d_c == "1" or d_c == "":
         degree = "°C"
         d_c = 1
-        #print("\nCurrent temperature: " + get_temps()[0] + degree)
     if d_c == "2":
         degree = "°F"
-        #print("\nCurrent temperature: " + get_temps()[1] + degree)
         
     Triggered = False
     Monitor = True
@@ -123,6 +122,5 @@ while Main:
         case "x":
             Main = False
             print("Closing System")
-            time.sleep(1)
-            
+            time.sleep(1)       
     time.sleep(1)
